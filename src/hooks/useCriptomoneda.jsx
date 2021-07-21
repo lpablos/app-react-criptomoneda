@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react'
+import React, {Fragment, useState} from 'react'
 import styled from '@emotion/styled';
 
 const Label = styled.label`
@@ -21,28 +21,25 @@ const Select = styled.select`
     font-size: 1.2rem;
 `
 
-const useMoneda = (label, stateInicial, opciones) => {
+const useCriptomoneda = (label, stateInicial) => {
 
     const [state, actualizarState] = useState(stateInicial)
 
-    const Seleccionar = () => (
+    const SelecionarCripto = () => (
         <Fragment>
-            <Label htmlFor="moneda">{label}</Label>
+            <Label>{label}</Label>
             <Select 
                 name="" 
                 id=""
                 onChange={e => actualizarState(e.target.value)}
                 value={state}
             >
-                <option value="">Selecione</option>
-                {opciones.map(opt =>(
-                    <option key={opt.codigo} value={opt.codigo}>{opt.nombre}</option>
-                ))}
+                <option value="">Selecione</option>              
             </Select>
         </Fragment>
     )
-    // Retorna state, interface y fun que modica el state
-    return [Seleccionar, state, actualizarState]
+    // Retorno
+    return [SelecionarCripto, state, actualizarState]
 }
 
-export default useMoneda
+export default useCriptomoneda
