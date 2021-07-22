@@ -23,7 +23,7 @@ const Boton = styled.input`
     }
 `
 
-const Formulario = () => {
+const Formulario = ({setMoneda, setCriptomoneda}) => {
     // Arreglo de monedas
     const MONEDAS = [
         { codigo: 'USD', nombre: 'Dolar de Estados Unidos'},
@@ -57,7 +57,9 @@ const Formulario = () => {
             return
         }
         setError(false)
-        alert("Tratas de enviar")
+        setMoneda(moneda)
+        setCriptomoneda(cripto)
+        
     }
 
     return (
