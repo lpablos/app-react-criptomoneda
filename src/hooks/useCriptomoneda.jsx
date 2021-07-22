@@ -21,8 +21,8 @@ const Select = styled.select`
     font-size: 1.2rem;
 `
 
-const useCriptomoneda = (label, stateInicial) => {
-
+const useCriptomoneda = (label, stateInicial, opciones) => {
+    
     const [state, actualizarState] = useState(stateInicial)
 
     const SelecionarCripto = () => (
@@ -34,7 +34,10 @@ const useCriptomoneda = (label, stateInicial) => {
                 onChange={e => actualizarState(e.target.value)}
                 value={state}
             >
-                <option value="">Selecione</option>              
+                <option value="">Selecione</option>  
+                {opciones.map(opt =>(
+                    <option key={opt.CoinInfo.Id} value={opt.CoinInfo.Name}>{opt.CoinInfo.FullName}</option>
+                ))}            
             </Select>
         </Fragment>
     )
