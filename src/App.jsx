@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react'
 import imagen from './cryptomonedas.png'
 import Formulario from './components/Formulario'
 import Cotizacion from './components/Cotizacion'
+import Spinner from './components/Spinner'
 import axios from 'axios'
 import styled from '@emotion/styled'
 
@@ -42,6 +43,7 @@ const App = () => {
   const [moneda, setMoneda] = useState('')
   const [criptomoneda, setCriptomoneda] = useState('')
   const [resultado, setResultado] = useState({})
+  const [cargando, setCargando] = useState(false)
 
   useEffect(() => {
     // Evistamos la consulta por aranque de valores
@@ -51,10 +53,16 @@ const App = () => {
     const cotizarCriptomoneda = async () =>{
       const url = `https://min-api.cryptocompare.com/data/pricemultifull?fsyms=${criptomoneda}&tsyms=${moneda}`;
       const resultado = await axios.get(url)
-      setResultado(resultado.data.DISPLAY[criptomoneda][moneda])
+      setCargando(true)
+      setTimeout(() => {
+        setCargando(false)
+        setResultado(resultado.data.DISPLAY[criptomoneda][moneda])
+      }, 3000);
     }
     cotizarCriptomoneda()    
   }, [moneda, criptomoneda])
+
+  const componente = (cargando) ? <Spinner /> :  <Cotizacion resultado = {resultado} />
   return (
     <Contenedor>
       <div>
@@ -72,9 +80,8 @@ const App = () => {
           setMoneda = {setMoneda} 
           setCriptomoneda = {setCriptomoneda}
         />
-        <Cotizacion 
-          resultado = {resultado}
-        />
+
+        {componente}
       </div>
     </Contenedor>
   )
